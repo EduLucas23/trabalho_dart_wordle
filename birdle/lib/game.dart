@@ -8,20 +8,17 @@ enum HitType { none, hit, partial, miss, removed }
 
 typedef Letter = ({String char, HitType type});
 
-const legalWords = <String>["aback", "abase", "abate", "abbey", "abbot"];
+const legalWords = <String>[
+  "grama", "campo", "forte", "pedra", "noite",
+  "verde", "mundo", "terra", "livro", "sonho",
+];
 
-/// Legal guesses minus legal wordles
+/// Palpites aceitos pelo jogo
 const legalGuesses = <String>[
-  "aback",
-  "abase",
-  "abate",
-  "abbey",
-  "abbot",
-  "abhor",
-  "abide",
-  "abled",
-  "abode",
-  "abort",
+  "grama", "campo", "forte", "pedra", "noite",
+  "verde", "mundo", "terra", "livro", "sonho",
+  "carne", "porta", "barco", "plano", "tigre",
+  "metal", "corpo", "olhar", "tempo", "sorte",
 ];
 
 /// This class holds game state for a single round of Bulls and Cows,

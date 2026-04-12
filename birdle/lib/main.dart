@@ -5,21 +5,16 @@ void main() {
   runApp(const MainApp());
 }
 
-
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(child: GamePage()),
-      ),
+      home: Scaffold(body: Center(child: GamePage())),
     );
   }
 }
-
-
 
 class Tile extends StatelessWidget {
   const Tile(this.letter, this.hitType, {super.key});
@@ -53,12 +48,6 @@ class Tile extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
 class GamePage extends StatefulWidget {
   GamePage({super.key});
 
@@ -81,14 +70,33 @@ class _GamePageState extends State<GamePage> {
               children: [
                 for (var letter in guess)
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 2.5,
+                      vertical: 2.5,
+                    ),
                     child: Tile(letter.char, letter.type),
-                  )
+                  ),
               ],
             ),
           GuessInput(
-           onSubmitGuess: (String guess) {
-              setState(() { // NEW
+            onSubmitGuess: (String guess) {
+              if (guess.length != 5) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('A palavra precisa ter ao menos 5 letras!'),
+                  ),
+                );
+                return;
+              }
+              if (!_game.isLegalGuess(guess)) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('A palavra não está na lista de palavras!'),
+                  ),
+                );
+                return;
+              }
+              setState(() {
                 _game.guess(guess);
               });
             },
@@ -98,9 +106,6 @@ class _GamePageState extends State<GamePage> {
     );
   }
 }
-
-
-
 
 class GuessInput extends StatelessWidget {
   GuessInput({super.key, required this.onSubmitGuess});
@@ -149,7 +154,6 @@ class GuessInput extends StatelessWidget {
     );
   }
 }
-
 
 class ExampleWidget extends StatefulWidget {
   ExampleWidget({super.key});
